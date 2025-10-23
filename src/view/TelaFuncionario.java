@@ -24,6 +24,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
         txtNome.setText("");
         txtTelefone.setText("");
         txtSalario.setText("");
+        txtCargo.setText("");
         txtNome.requestFocus();
     }
 
@@ -32,7 +33,8 @@ public class TelaFuncionario extends javax.swing.JFrame {
             String nome = txtNome.getText();
             String tel = txtTelefone.getText();
             double sal = Double.parseDouble(txtSalario.getText().trim());
-            return new Funcionario(nome, tel, sal);
+            String cargo = txtCargo.getText();
+            return new Funcionario(nome, tel, sal, cargo);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "O salário deve ser um número decimal!", "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
@@ -50,6 +52,8 @@ public class TelaFuncionario extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtSalario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtCargo = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
@@ -86,6 +90,15 @@ public class TelaFuncionario extends javax.swing.JFrame {
         txtSalario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSalarioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Cargo");
+
+        txtCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCargoActionPerformed(evt);
             }
         });
 
@@ -157,6 +170,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(jLabel1))
@@ -167,7 +181,10 @@ public class TelaFuncionario extends javax.swing.JFrame {
                         .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel4)))
                 .addGap(105, 105, 105))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(82, Short.MAX_VALUE)
@@ -204,6 +221,10 @@ public class TelaFuncionario extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -231,6 +252,10 @@ public class TelaFuncionario extends javax.swing.JFrame {
     private void txtSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSalarioActionPerformed
+
+    private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCargoActionPerformed
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         Funcionario f = criarFuncionario();
@@ -264,8 +289,9 @@ public class TelaFuncionario extends javax.swing.JFrame {
                     String novoNome = JOptionPane.showInputDialog(this, "Novo nome:", f.getNome());
                     String novoTelefone = JOptionPane.showInputDialog(this, "Novo telefone:", f.getTelefone());
                     double novoSalario = Double.parseDouble(JOptionPane.showInputDialog(this, "Novo salário:", f.getSalario()));
+                    String novoCargo = JOptionPane.showInputDialog(this, "Novo cargo:", f.getCargo());
 
-                    controller.alterar(i, new Funcionario(novoNome, novoTelefone, novoSalario));
+                    controller.alterar(i, new Funcionario(novoNome, novoTelefone, novoSalario, novoCargo));
                     JOptionPane.showMessageDialog(this, "Funcionário atualizado com sucesso!");
                     encontrado = true;
                     break;
@@ -325,6 +351,7 @@ public class TelaFuncionario extends javax.swing.JFrame {
             sb.append("Nome: ").append(f.getNome())
               .append("\nTelefone: ").append(f.getTelefone())
               .append("\nSalário: R$ ").append(f.getSalario())
+              .append("\nCargo: ").append(f.getCargo())
               .append("\n==========\n");
         }
 
@@ -355,7 +382,9 @@ public class TelaFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSalario;
     private javax.swing.JTextField txtTelefone;

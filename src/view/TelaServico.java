@@ -24,6 +24,7 @@ public class TelaServico extends javax.swing.JFrame {
     private void limparCampos() {
         txtDescricao.setText("");
         txtValor.setText("");
+        txtDuracao.setText("");
         txtDescricao.requestFocus();
     }
 
@@ -31,9 +32,10 @@ public class TelaServico extends javax.swing.JFrame {
         try {
             String descricao = txtDescricao.getText();
             double valor = Double.parseDouble(txtValor.getText().trim());
-            return new Servico(descricao, valor);
+            int duracao = Integer.parseInt(txtDuracao.getText().trim());
+            return new Servico(descricao, valor, duracao);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "O valor deve ser um número decimal!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "O valor e a duração devem ser números válidos!", "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -47,6 +49,8 @@ public class TelaServico extends javax.swing.JFrame {
         txtDescricao = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtDuracao = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
@@ -74,6 +78,15 @@ public class TelaServico extends javax.swing.JFrame {
         txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Duração (min)");
+
+        txtDuracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDuracaoActionPerformed(evt);
             }
         });
 
@@ -155,7 +168,8 @@ public class TelaServico extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(105, 105, 105))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -170,8 +184,14 @@ public class TelaServico extends javax.swing.JFrame {
                 .addGap(0, 86, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(182, 182, 182))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel3)))
+                .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,6 +206,10 @@ public class TelaServico extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -210,6 +234,10 @@ public class TelaServico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorActionPerformed
 
+    private void txtDuracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDuracaoActionPerformed
+
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         Servico s = criarServico();
         
@@ -228,29 +256,32 @@ public class TelaServico extends javax.swing.JFrame {
     private void btnAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseClicked
         String descricao = txtDescricao.getText().trim();
         String valorStr = txtValor.getText().trim();
+        String duracaoStr = txtDuracao.getText().trim();
 
-        if (descricao.isEmpty() || valorStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Digite a descrição e o valor do serviço para atualizar!", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (descricao.isEmpty() || valorStr.isEmpty() || duracaoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos para atualizar!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
             double valor = Double.parseDouble(valorStr);
+            int duracao = Integer.parseInt(duracaoStr);
             ArrayList<Servico> lista = controller.listarServicos();
             boolean encontrado = false;
 
             for (int i = 0; i < lista.size(); i++) {
                 Servico s = lista.get(i);
-                if (s.getDescricao().equals(descricao) && s.getPreco() == valor) {
+                if (s.getDescricao().equals(descricao) && s.getPreco() == valor && s.getDuracaoMinutos() == duracao) {
                     try {
                         String novaDescricao = JOptionPane.showInputDialog(this, "Nova descrição:", s.getDescricao());
                         double novoValor = Double.parseDouble(JOptionPane.showInputDialog(this, "Novo valor:", s.getPreco()));
+                        int novaDuracao = Integer.parseInt(JOptionPane.showInputDialog(this, "Nova duração (min):", s.getDuracaoMinutos()));
 
                         if (novaDescricao.isEmpty()) {
                             throw new IllegalArgumentException("A descrição não pode ficar vazia!");
                         }
 
-                        controller.atualizarServico(i, new Servico(novaDescricao, novoValor));
+                        controller.atualizarServico(i, new Servico(novaDescricao, novoValor, novaDuracao));
                         JOptionPane.showMessageDialog(this, "Serviço atualizado com sucesso!");
                         encontrado = true;
                         break;
@@ -278,20 +309,22 @@ public class TelaServico extends javax.swing.JFrame {
     private void btnDeletarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseClicked
         String descricao = txtDescricao.getText().trim();
         String valorStr = txtValor.getText().trim();
+        String duracaoStr = txtDuracao.getText().trim();
 
-        if (descricao.isEmpty() || valorStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Digite a descrição e o valor do serviço para excluir!", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (descricao.isEmpty() || valorStr.isEmpty() || duracaoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos para excluir!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
             double valor = Double.parseDouble(valorStr);
+            int duracao = Integer.parseInt(duracaoStr);
             ArrayList<Servico> lista = controller.listarServicos();
             boolean encontrado = false;
 
             for (int i = 0; i < lista.size(); i++) {
                 Servico s = lista.get(i);
-                if (s.getDescricao().equals(descricao) && s.getPreco() == valor) {
+                if (s.getDescricao().equals(descricao) && s.getPreco() == valor && s.getDuracaoMinutos() == duracao) {
                     controller.excluirServico(i);
                     JOptionPane.showMessageDialog(this, "Serviço removido com sucesso!");
                     limparCampos(); // limpa depois de excluir
@@ -323,7 +356,8 @@ public class TelaServico extends javax.swing.JFrame {
         StringBuilder sb = new StringBuilder("Serviços cadastrados:\n\n");
         for (Servico s : lista) {
             sb.append("Descrição: ").append(s.getDescricao())
-              .append("\nValor: ").append(s.getPreco())
+              .append("\nValor: R$ ").append(s.getPreco())
+              .append("\nDuração: ").append(s.getDuracaoMinutos()).append(" min")
               .append("\n==========\n");
         }
 
@@ -350,8 +384,10 @@ public class TelaServico extends javax.swing.JFrame {
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtDuracao;
     private javax.swing.JTextField txtValor;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables

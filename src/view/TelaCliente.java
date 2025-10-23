@@ -22,6 +22,7 @@ public class TelaCliente extends javax.swing.JFrame {
     private void limparCampos() {
         txtNome.setText("");
         txtEmail.setText("");
+        txtTelefone.setText("");
         txtNome.requestFocus();
     }
 
@@ -29,12 +30,13 @@ public class TelaCliente extends javax.swing.JFrame {
         try {
             String nome = txtNome.getText().trim();
             String email = txtEmail.getText().trim();
-            
-            if (nome.isEmpty() || email.isEmpty()) {
+            String telefone = txtTelefone.getText().trim();
+
+            if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty()) {
                 throw new IllegalArgumentException("Preencha todos os campos!");
             }
-            
-            return new Cliente(nome, email);
+
+            return new Cliente(nome, email, telefone);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
@@ -50,6 +52,8 @@ public class TelaCliente extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
@@ -78,6 +82,15 @@ public class TelaCliente extends javax.swing.JFrame {
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Telefone:");
+
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
             }
         });
 
@@ -163,13 +176,17 @@ public class TelaCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(75, 75, 75)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(76, 76, 76)
-                                .addComponent(jLabel2))))
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addComponent(jLabel3))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(voltar)))
@@ -188,6 +205,10 @@ public class TelaCliente extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(4, 4, 4)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(4, 4, 4)
+                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,6 +228,10 @@ public class TelaCliente extends javax.swing.JFrame {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
@@ -242,12 +267,13 @@ public class TelaCliente extends javax.swing.JFrame {
                 try {
                     String novoNome = JOptionPane.showInputDialog(this, "Novo nome:", c.getNome().trim());
                     String novoEmail = JOptionPane.showInputDialog(this, "Novo email:", c.getEmail().trim());
+                    String novoTelefone = JOptionPane.showInputDialog(this, "Novo telefone:", c.getTelefone().trim());
 
-                    if (novoNome.isEmpty() || novoEmail.isEmpty()) {
+                    if (novoNome.isEmpty() || novoEmail.isEmpty() || novoTelefone.isEmpty()) {
                         throw new IllegalArgumentException("Os campos não podem ficar vazios!");
                     }
 
-                    controller.atualizarCliente(i, new Cliente(novoNome, novoEmail));
+                    controller.atualizarCliente(i, new Cliente(novoNome, novoEmail, novoTelefone));
                     JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!");
                     encontrado = true;
                     break;
@@ -305,6 +331,7 @@ public class TelaCliente extends javax.swing.JFrame {
         for (Cliente c : lista) {
             sb.append("Nome: ").append(c.getNome())
               .append("\nEmail: ").append(c.getEmail())
+              .append("\nTelefone: ").append(c.getTelefone())
               .append("\n==========\n");
         }
         JOptionPane.showMessageDialog(this, sb.toString());
@@ -333,9 +360,11 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel title;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtTelefone;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }
