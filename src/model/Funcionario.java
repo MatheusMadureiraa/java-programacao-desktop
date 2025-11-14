@@ -1,32 +1,33 @@
 
 package model;
 
-/**
- *
- * @author mathe
- */
 import java.io.Serializable;
 
 public class Funcionario implements Serializable {
     private static final long serialVersionUID = 1L;
+    private int id;
     private String nome;
     private String telefone;
     private double salario;
     private String cargo;
 
-    // construtores
     public Funcionario() {
-        this.nome = "nome não informado";
-        this.telefone = "tel não informado";
-        this.salario = 0.0;
-        this.cargo = "cargo não informado";
     }
 
-    public Funcionario(String nome, String telefone, double salario, String cargo) {
+    public Funcionario(int id, String nome, String telefone, double salario, String cargo) {
+        this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.salario = salario;
         this.cargo = cargo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     // getter e setters
