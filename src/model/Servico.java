@@ -4,20 +4,19 @@ package model;
 import java.io.Serializable;
 
 public class Servico implements Serializable{
-    private static final long serialVersionUID = 1L;
     private int id;
     private String descricao;
     private double preco;
-    private int duracaoMinutos;
+    private int duracaoDias;
 
     public Servico(){
     }
 
-    public Servico(int id, String descricao, double preco, int duracaoMinutos) {
+    public Servico(int id, String descricao, double preco, int duracaoDias) {
         this.id = id;
         this.descricao = descricao;
         this.preco = preco;
-        this.duracaoMinutos = duracaoMinutos;
+        this.duracaoDias = duracaoDias;
     }
 
     public int getId() {
@@ -46,16 +45,16 @@ public class Servico implements Serializable{
         this.preco = preco;
     }
 
-    public int getDuracaoMinutos() {
-        return duracaoMinutos;
+    public int getDuracaoDias() {
+        return duracaoDias;
     }
 
-    public void setDuracaoMinutos(int duracaoMinutos) {
-        this.duracaoMinutos = duracaoMinutos;
+    public void setDuracaoDias(int duracaoDias) {
+        this.duracaoDias = duracaoDias;
     }
 
     @Override
     public String toString() {
-        return descricao + ";" + preco + ";" + duracaoMinutos + " min";
+        return descricao + ";" + preco + ";" + duracaoDias + " min";
     }
 }

@@ -36,6 +36,11 @@ public class telaInicial extends javax.swing.JFrame {
                 btnClientesMouseClicked(evt);
             }
         });
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
 
         btnFuncionarios.setText("Funcionários");
         btnFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,17 +110,17 @@ public class telaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionariosActionPerformed
-        new TelaFuncionario();
+        new JanelaFuncionario();
         this.dispose();
     }//GEN-LAST:event_btnFuncionariosActionPerformed
 
     private void btnServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicosActionPerformed
-        new TelaServico();
+        new JanelaServico();
         this.dispose();
     }//GEN-LAST:event_btnServicosActionPerformed
 
     private void btnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseClicked
-        new TelaCliente();
+        new JanelaCliente();
         this.dispose();
     }//GEN-LAST:event_btnClientesMouseClicked
 
@@ -126,6 +131,11 @@ public class telaInicial extends javax.swing.JFrame {
     private void btnFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionariosMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFuncionariosMouseClicked
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        new JanelaCliente();
+        this.dispose();
+    }//GEN-LAST:event_btnClientesActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> new telaInicial().setVisible(true));
