@@ -1,14 +1,10 @@
 package controller;
 
 import model.Funcionario;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import util.JDBCUtil;
 
 public class FuncionarioDAO {
 

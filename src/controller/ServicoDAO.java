@@ -1,11 +1,7 @@
 package controller;
 
 import model.Servico;
-import util.JDBCUtil;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

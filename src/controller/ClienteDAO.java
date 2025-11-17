@@ -1,14 +1,10 @@
 package controller;
 
 import model.Cliente;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import util.JDBCUtil;
 
 public class ClienteDAO {
     
@@ -99,8 +95,8 @@ public class ClienteDAO {
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
             pstdados = connection.prepareStatement(sqlalterar, tipo, concorrencia);
             pstdados.setString(1, cli.getNome());
-            pstdados.setString(2, cli.getTelefone());
-            pstdados.setString(3, cli.getEmail());
+            pstdados.setString(2, cli.getEmail());
+            pstdados.setString(3, cli.getTelefone());
             pstdados.setInt(4, cli.getId());
             int resposta = pstdados.executeUpdate();
             pstdados.close();

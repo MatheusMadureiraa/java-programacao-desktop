@@ -1,6 +1,3 @@
-/*
- arquivo com utilitarios para inicializacao do database
- */
 package util;
 
 import java.io.File;
@@ -13,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author mathe
+ * @author matheus
  */
 public class Database {
     

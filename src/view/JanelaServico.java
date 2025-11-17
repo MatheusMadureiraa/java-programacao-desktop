@@ -17,6 +17,7 @@ public class JanelaServico extends javax.swing.JFrame {
 
     public JanelaServico() {
         initComponents();
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -495,7 +496,11 @@ public class JanelaServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVisualizarMouseClicked
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-
+        if (dao.ConsultarTodos()) {
+            new VisualizarDados(dao.getRsdados(), "Clientes");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao consultar clientes.");
+        }
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed

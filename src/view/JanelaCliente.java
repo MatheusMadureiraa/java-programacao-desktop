@@ -24,6 +24,7 @@ public class JanelaCliente extends javax.swing.JFrame {
      */
     public JanelaCliente() {
         initComponents();
+        setVisible(true);
     }
 
     /**
@@ -426,7 +427,11 @@ public class JanelaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVisualizarMouseClicked
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-        
+        if (dao.ConsultarTodos()) {
+            new VisualizarDados(dao.getRsdados(), "Clientes");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao consultar clientes.");
+        }
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed

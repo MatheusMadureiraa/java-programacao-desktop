@@ -1,4 +1,3 @@
-
 package view;
 
 /**
@@ -7,8 +6,6 @@ package view;
  */
 public class telaInicial extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(telaInicial.class.getName());
-
     public telaInicial() {
         initComponents();
         setLocationRelativeTo(null);
